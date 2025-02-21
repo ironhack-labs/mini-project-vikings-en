@@ -1,8 +1,9 @@
 # With a correction already implemented: dont forget to initialize an instance of Class "War"
 
 
-from .vikingsClasses import Soldier, Viking, Saxon, War
+from vikingsClasses import Soldier, Viking, Saxon, War
 import random
+import cowsay
 
 
 soldier_names = ["albert","andres","archie","dani", "david","gerard","german","graham","imanol","laura"]
@@ -17,11 +18,11 @@ for i in range(0,5):
 for i in range(0,5):
     if i:
         great_war.addSaxon(Saxon(100,random.randint(0,100)))
-    
+
 round = 0
 while great_war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
     great_war.vikingAttack()
     great_war.saxonAttack()
-    print(f"round: {round} // Viking army: {len(great_war.vikingArmy)} warriors",f"and Saxon army: {len(great_war.saxonArmy)} warriors")
+    print(cowsay.get_output_string('turtle', f"round: {round} // Viking army: {len(great_war.vikingArmy)} warriors, and Saxon army: {len(great_war.saxonArmy)} warriors"))
     print(great_war.showStatus())
-    round += 1
+    round += 1 
