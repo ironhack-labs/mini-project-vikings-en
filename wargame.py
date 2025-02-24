@@ -1,27 +1,40 @@
-# With a correction already implemented: dont forget to initialize an instance of Class "War"
-
-
-from .vikingsClasses import Soldier, Viking, Saxon, War
+from vikingsClasses import Soldier, Viking, Saxon, War
 import random
 
-
-soldier_names = ["albert","andres","archie","dani", "david","gerard","german","graham","imanol","laura"]
-great_war = War()
-
-#Create 5 Vikings
-for i in range(0,5):
-    if i:
-        great_war.addViking(Viking(soldier_names[random.randint(0,9)],100,random.randint(0,100)))
-
-#Create 5 Saxons
-for i in range(0,5):
-    if i:
-        great_war.addSaxon(Saxon(100,random.randint(0,100)))
+def create_warriors(war, num_vikings=5, num_saxons=5):
+    """Creates a specified number of Viking and Saxon warriors."""
+    soldier_names = ["Albert", "Andres", "Archie", "Dani", "David", "Gerard", "German", "Graham", "Imanol", "Laura"]
     
-round = 0
-while great_war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
-    great_war.vikingAttack()
-    great_war.saxonAttack()
-    print(f"round: {round} // Viking army: {len(great_war.vikingArmy)} warriors",f"and Saxon army: {len(great_war.saxonArmy)} warriors")
-    print(great_war.showStatus())
-    round += 1
+    for _ in range(num_vikings):
+        name = random.choice(soldier_names)
+        health = random.randint(80, 120)
+        strength = random.randint(30, 100)
+        war.addViking(Viking(name, health, strength))
+    
+    for _ in range(num_saxons):
+        health = random.randint(80, 120)
+        strength = random.randint(30, 100)
+        war.addSaxon(Saxon(health, strength))
+
+def battle(war):
+    """Simulates the battle between Vikings and Saxons."""
+    round_count = 1
+    
+    while war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
+        print(f"Round {round_count}: \n")
+        if war.vikingArmy and war.saxonArmy:
+            print(war.vikingAttack())
+        if war.vikingArmy and war.saxonArmy:
+            print(war.saxonAttack())
+        
+        print(f"Viking army size: {len(war.vikingArmy)} | Saxon army size: {len(war.saxonArmy)}\n")
+        print("-" * 40)
+        round_count += 1
+    
+    print("Final Outcome:")
+    print(war.showStatus())
+
+if __name__ == "__main__":
+    great_war = War()
+    create_warriors(great_war)
+    battle(great_war)
