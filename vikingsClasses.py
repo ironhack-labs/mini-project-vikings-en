@@ -3,7 +3,7 @@ import random
 # Soldier
 class Soldier:
     def __init__(self, health, strength):
-        print(f"Creating Soldier with {health=} {strength=}")
+        # Removed the debug print statement: print(f"Creating Soldier with {health=} {strength=}")
         self.health = health
         self.strength = strength
     
@@ -54,7 +54,6 @@ class War:
         self.saxonArmy.append(saxon)
     
     def vikingAttack(self):
-        
         saxon = random.choice(self.saxonArmy)
         viking = random.choice(self.vikingArmy)
                 
@@ -66,7 +65,6 @@ class War:
         return result
     
     def saxonAttack(self):
-        
         viking = random.choice(self.vikingArmy)
         saxon = random.choice(self.saxonArmy)
 
@@ -84,4 +82,3 @@ class War:
             return "Saxons have fought for their lives and survive another day..."
         else:
             return "Vikings and Saxons are still in the thick of battle."
-
