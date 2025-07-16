@@ -1,9 +1,7 @@
 # With a correction already implemented: dont forget to initialize an instance of Class "War"
 
-
-from .vikingsClasses import Soldier, Viking, Saxon, War
+from vikingsClasses import Soldier, Viking, Saxon, War
 import random
-
 
 soldier_names = ["albert","andres","archie","dani", "david","gerard","german","graham","imanol","laura"]
 great_war = War()
@@ -17,7 +15,7 @@ for i in range(0,5):
 for i in range(0,5):
     if i:
         great_war.addSaxon(Saxon(100,random.randint(0,100)))
-    
+
 round = 0
 while great_war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
     great_war.vikingAttack()
