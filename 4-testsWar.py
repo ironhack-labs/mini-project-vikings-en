@@ -80,7 +80,7 @@ class TestWar2(unittest.TestCase):
 
     def testAddSaxon(self):
         print(self.war.__dict__)
-        self.assertEqual(self.war.vikingAttack(), 'A Saxon has died in combat')
+        self.assertEqual(self.war.vikingAttack(),'A Saxon has died in combat')
 
     def testSaxonAttackIsFunction(self):
         self.assertEqual(callable(self.war.saxonAttack), True)
@@ -119,11 +119,11 @@ class TestWar2(unittest.TestCase):
         for i in range(12):
             self.war.saxonAttack()
         self.assertEqual(self.war.showStatus(
-        ), 'Saxons have fought for their lives and survive another day...')
+        ),'Saxons have fought for their lives and survive another day...')
 
     def testShouldReturnStringStillFighting(self):
         self.assertEqual(
-            self.war.showStatus(), 'Vikings and Saxons are still in the thick of battle.')
+            self.war.showStatus(),'Vikings and Saxons are still in the thick of battle.')
 
 
 if __name__ == '__main__':
