@@ -1,60 +1,142 @@
 import random
-
 # Soldier
 
 
 class Soldier:
+
+    ## Define the properties on the constructor
+    
     def __init__(self, health, strength):
-        # your code here
+        self.health = health
+        self.strength = strength
+    
+    ## Return the strenght of the soldier
     
     def attack(self):
-        # your code here
-
+        return self.strength
+        
+    ## We don't need to return anything, we just susbtract the damage from the health
+    
     def receiveDamage(self, damage):
-        # your code here
+        self.health -= damage
+
     
 
 # Viking
 
 class Viking(Soldier):
+    
+    ## We define viking's properties as the constructor
+    
     def __init__(self, name, health, strength):
-        # your code here
+        super().__init__(health, strength)
+        self.name = name
 
+    ## Define battlecry, don't take any arguments and just return a string
+    
     def battleCry(self):
-        # your code here
+        return "Odin Owns You All!"
 
     def receiveDamage(self, damage):
-        # your code here
+        self.health -= damage
+        if self.health > 0:
+            return f"{self.name} has received {damage} points of damage"
+        else:
+            return f"{self.name} has died in act of combat"
+            
 
 # Saxon
 
 class Saxon(Soldier):
+    
+    ## We define saxon's constructor, saxons has no names
+    
     def __init__(self, health, strength):
-        # your code here
-
+        super().__init__(health, strength)
+        
+    ## We define saxon's properties
+    
     def receiveDamage(self, damage):
-        # your code here
-
+        self.health -= damage
+        if self.health > 0:
+            return f"A Saxon has received {damage} points of damage"
+        else:
+            return "A Saxon has died in combat"
+        
 # Davicente
 
 class War():
+    
+    ## The war constructor sholdn't recieve any arguments, we create the army of both sides
+    
     def __init__(self):
-        # your code here
+       self.vikingArmy = []
+       self.saxonArmy = []
+
+    ## We append the new viking to the Viking Army 
 
     def addViking(self, viking):
-        # your code here
+        self.vikingArmy.append(viking)
+
+    ## We append the new saxon to the Saxon Army
     
     def addSaxon(self, saxon):
-        # your code here
+        self.saxonArmy.append(saxon)
+    
+    ## We return the saxon's missing health from the vikings attack
     
     def vikingAttack(self):
-        # your code here
+        viking = random.choice(self.vikingArmy)
+        saxon = random.choice(self.saxonArmy)
+<<<<<<< HEAD
+
+        result1 = saxon.receiveDamage(viking.strength)
+
+        if saxon.health <= 0:
+            self.saxonArmy.remove(saxon)
+
+        return result1
+=======
+        
+        result = saxon.receiveDamage(viking.strength)
+        
+        if saxon.health <= 0:
+            self.saxonArmy.remove(saxon)
+        
+        return result
+>>>>>>> 3dc0a029dc7acc36712875644abc88899d8f2e32
+        
+    ## We return viking's missing health fromn the saxon's attack
     
     def saxonAttack(self):
-        # your code here
+        viking = random.choice(self.vikingArmy)
+        saxon = random.choice(self.saxonArmy)
+<<<<<<< HEAD
+
+        result2 = viking.receiveDamage(saxon.strength)
+
+        if viking.health <= 0:
+            self.vikingArmy.remove(viking)
+
+        return result2
+=======
+        
+        result = viking.receiveDamage(saxon.strength)
+        
+        if viking.health <= 0:
+            self.vikingArmy.remove(viking)
+        
+        return result
+>>>>>>> 3dc0a029dc7acc36712875644abc88899d8f2e32
+    
 
     def showStatus(self):
-        # your code here
-    pass
-
+        if len(self.vikingArmy) == 0:
+            return f"Saxons have fought for their lives and survive another day..."
+        
+        elif len(self.saxonArmy) == 0:
+            return f"Vikings have won the war of the century!"
+            
+        elif len(self.vikingArmy) >= 1 and len(self.saxonArmy) >= 1:
+            return "Vikings and Saxons are still in the thick of battle."
 

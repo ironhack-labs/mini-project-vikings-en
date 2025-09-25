@@ -1,0 +1,31 @@
+Key Programming Concepts in Your Code
+
+Object-Oriented Programming (OOP):
+
+Soldier is the base class.
+
+Viking and Saxon inherit from Soldier.
+
+War uses composition (armies made up of objects).
+
+Inheritance & Method Overriding:
+
+Both Viking and Saxon override receiveDamage() from Soldier.
+
+This allows them to give different messages even though the logic (subtract health) is similar.
+
+Polymorphism:
+
+The attack() method works the same way for Vikings and Saxons (from Soldier).
+
+But receiveDamage() behaves differently depending on whether it’s a Viking or Saxon.
+
+Encapsulation:
+
+Each object manages its own health and strength.
+
+You don’t directly manipulate those values outside the class except through methods.
+
+Randomness in Battle:
+
+The random.choice() ensures unpredictability (different Viking/Saxon fights each turn).
