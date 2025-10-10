@@ -2,10 +2,9 @@ import random
 
 # Soldier
 
-
 class Soldier:
     def __init__(self, health, strength):
-        self.health = health
+        self.health = health        
         self.strength = strength 
     
     def attack(self):
@@ -30,6 +29,7 @@ class Viking(Soldier):
             return f"{self.name} has received {damage} points of damage"
         else:
             return f"{self.name} has died in act of combat"
+        
         
 # Saxon
 
@@ -62,8 +62,7 @@ class War():
             return None
         attacking_viking = random.choice(self.vikingArmy)
         attacked_saxon = random.choice(self.saxonArmy)
-        damage = attacking_viking.strength
-        result = attacked_saxon.receiveDamage(damage)
+        result = attacked_saxon.receiveDamage(attacking_viking.attack())
         if attacked_saxon.health <= 0:
             self.saxonArmy.remove(attacked_saxon)
         return result
@@ -73,8 +72,7 @@ class War():
             return None
         attacking_saxon = random.choice(self.saxonArmy)
         attacked_viking = random.choice(self.vikingArmy)
-        damage = attacking_saxon.strength
-        result = attacked_viking.receiveDamage(damage)
+        result = attacked_viking.receiveDamage(attacking_saxon.attack())
         if attacked_viking.health <= 0:
             self.vikingArmy.remove(attacked_viking)
         return result 
