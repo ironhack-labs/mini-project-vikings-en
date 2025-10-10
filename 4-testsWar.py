@@ -80,7 +80,7 @@ class TestWar2(unittest.TestCase):
 
     def testAddSaxon(self):
         print(self.war.__dict__)
-        self.assertEqual(self.war.vikingAttack(), 'A Saxon has died in combat')
+        self.assertEqual(self.war.vikingAttack(), 'A Saxon has died in act of combat')
 
     def testSaxonAttackIsFunction(self):
         self.assertEqual(callable(self.war.saxonAttack), True)
