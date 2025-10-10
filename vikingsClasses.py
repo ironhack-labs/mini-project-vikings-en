@@ -1,22 +1,44 @@
 import random
 
+"""
+VIKINGS VS SAXONS - Battle Simulation
+[[DOCUMENT<>! MADE WITH COPILOT<>!]]
+
+This program simulates an epic battle between two armies: Vikings and Saxons.
+It demonstrates the principles of Object-Oriented Programming (OOP) using Python,
+including class inheritance, encapsulation, and interaction between objects.
+
+Main components:
+  - Soldier: Base class representing a generic warrior with health and strength.
+  - Viking:  A subclass of Soldier with a name, a battle cry, and custom messages.
+  - Saxon:   A subclass of Soldier representing a nameless enemy.
+  - War:     A class that manages both armies, executes attacks, and reports battle status.
+
+The simulation creates random armies, lets them fight turn by turn, and announces the final outcome.
+"""
+
+
 # Soldier
 
 class Soldier:
   """
   Class Soldier:
-      Class that represents a generic soldier in battle, with health and strength attributes.
-      It serves as the base class for more specific soldier types (Vikings and Saxons).
+      Represents a basic soldier with health and strength attributes.
 
-  Args                :
-      health          : is the amount of life points the soldier has; when it reaches 0 or below, the soldier is defeated.
-      strength        : is the strength of the soldier, which determines how much damage they deal when attacking.
+      This class serves as the foundation for specialized types of soldiers,
+      such as Vikings and Saxons, which inherit from it and extend its behavior.
 
-  methods             :
-      attack          : returns the soldier's strength as the damage they can inflict.
-      receiveDamage   : reduces the soldier's health by the given damage amount.
+  Attributes:
+      health (int): The soldier's current life points. When it reaches 0 or below, the soldier is defeated.
+      strength (int): The amount of damage the soldier can inflict when attacking.
 
-  returns             : nothing because the class is meant to be inherited and extended by subclasses.
+  Methods:
+      attack():
+          Returns the soldier's strength value, representing the damage dealt during an attack.
+
+      receiveDamage(damage):
+          Reduces the soldier's health by the specified damage amount.
+          Does not return any message, as this method is meant to be overridden by subclasses.
   """
   def __init__(self, health, strength):
     self.health= health
@@ -33,17 +55,23 @@ class Soldier:
 class Viking(Soldier):
   """
   Class Viking:
-      Class that represents a Viking warrior, inheriting from Soldier.
-      Vikings have a name, can shout a battle cry, and provide specific messages when damaged.
+      Represents a Viking warrior, inheriting from Soldier.
 
-  Args                :
-      name            : is the name of the Viking warrior.
-      health          : is the amount of life points the Viking has.
-      strength        : is the strength of the Viking, used for attacking.
+      Each Viking has a name, can shout a battle cry, and displays unique messages
+      when receiving damage or dying in combat.
 
-  methods             :
-      battleCry       : returns the Viking's iconic battle cry.
-      receiveDamage   : overrides the parent method to return a custom message when damaged or killed.
+  Attributes:
+      name (str): The Viking’s personal name.
+      health (int): The Viking’s life points.
+      strength (int): The Viking’s attack strength.
+
+  Methods:
+      battleCry():
+          Returns the Viking's iconic battle cry: "Odin Owns You All!".
+
+      receiveDamage(damage):
+          Subtracts the given damage from the Viking's health.
+          Returns a specific message depending on whether the Viking survives or dies.
   """
   def __init__(self, name, health, strength):
     super().__init__(health, strength)
@@ -66,15 +94,19 @@ class Viking(Soldier):
 class Saxon(Soldier):
   """
   Class Saxon:
-      Class that represents a Saxon soldier, inheriting from Soldier.
-      Saxons do not have names and use generic messages when damaged.
+      Represents a Saxon fighter, inheriting from Soldier.
 
-  Args                :
-      health          : is the amount of life points the Saxon has.
-      strength        : is the strength of the Saxon, used for attacking.
+      Saxons are anonymous warriors with no personal names and provide
+      generic messages when taking or receiving fatal damage.
 
-  methods             :
-      receiveDamage   : overrides the parent method to return a generic message when damaged or killed.
+  Attributes:
+      health (int): The Saxon’s current life points.
+      strength (int): The Saxon’s attack strength.
+
+  Methods:
+      receiveDamage(damage):
+          Subtracts the given damage from the Saxon’s health.
+          Returns a general message based on whether the Saxon survives or dies.
   """
   def __init__(self, health, strength):
      super().__init__(health, strength)
@@ -91,19 +123,42 @@ class Saxon(Soldier):
 class War():
   """
   Class War:
-      Class that simulates a battle between two armies: Vikings and Saxons.
-      It manages the armies, handles attacks, and reports the current status of the war.
+      Represents the battlefield where Vikings and Saxons fight.
 
-  Args                :
-      (none)          : the class initializes with empty Viking and Saxon armies.
+      This class coordinates the interaction between both armies. It manages the
+      addition of soldiers, executes attacks between them, and reports the current
+      status of the ongoing war.
 
-  methods             :
-      addViking       : adds a Viking instance to the Viking army.
-      addSaxon        : adds a Saxon instance to the Saxon army.
-      vikingAttack    : selects a random Viking to attack a random Saxon; removes dead Saxons.
-      saxonAttack     : selects a random Saxon to attack a random Viking; removes dead Vikings.
-      showStatus      : returns a string describing the current outcome of the war.
+  Attributes:
+      vikingArmy (list): A list containing all Viking instances currently in the army.
+      saxonArmy (list): A list containing all Saxon instances currently in the army.
+
+  Methods:
+      addViking(viking):
+          Adds a Viking object to the Viking army.
+
+      addSaxon(saxon):
+          Adds a Saxon object to the Saxon army.
+
+      vikingAttack():
+          Selects a random Viking and a random Saxon.
+          The chosen Viking attacks the chosen Saxon.
+          Removes the Saxon from the army if their health reaches zero or below.
+          Returns the result message from the Saxon’s receiveDamage() method.
+
+      saxonAttack():
+          Selects a random Saxon and a random Viking.
+          The chosen Saxon attacks the chosen Viking.
+          Removes the Viking from the army if their health reaches zero or below.
+          Returns the result message from the Viking’s receiveDamage() method.
+
+      showStatus():
+          Returns a string describing the current state of the war:
+              - If all Saxons are dead → Vikings have won.
+              - If all Vikings are dead → Saxons have survived.
+              - Otherwise → the battle continues.
   """
+
   def __init__(self):
     self.vikingArmy= []
     self.saxonArmy= []
@@ -118,21 +173,21 @@ class War():
     viking= random.choice(self.vikingArmy)
     saxon= random.choice(self.saxonArmy)
 
-    halved_health= saxon.receiveDamage(viking.strength)
+    damage_report= saxon.receiveDamage(viking.strength)
     if saxon.health<= 0:
       self.saxonArmy.remove(saxon)
     
-    return halved_health
+    return damage_report
   
   def saxonAttack(self):
     viking= random.choice(self.vikingArmy)
     saxon= random.choice(self.saxonArmy)
 
-    halved_health= viking.receiveDamage(saxon.strength)
+    damage_report= viking.receiveDamage(saxon.strength)
     if viking.health<= 0:
       self.vikingArmy.remove(viking)
     
-    return halved_health
+    return damage_report
 
   def showStatus(self):
     if len(self.vikingArmy) == 0:
