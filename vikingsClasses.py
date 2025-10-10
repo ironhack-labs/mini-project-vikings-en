@@ -64,8 +64,7 @@ class Soldier:
           Does not return any message, as this method is meant to be overridden by subclasses.
   """
   def __init__(self, health, strength):
-    self.health= health
-    self.strength= strength
+    self.health, self.strength= health, strength
   
   def attack(self):
     return self.strength
@@ -183,8 +182,7 @@ class War():
   """
 
   def __init__(self):
-    self.vikingArmy= []
-    self.saxonArmy= []
+    self.vikingArmy, self.saxonArmy= [], []
 
   def addViking(self, viking):
     self.vikingArmy.append(viking)
@@ -193,8 +191,7 @@ class War():
     self.saxonArmy.append(saxon)
   
   def vikingAttack(self):
-    viking= random.choice(self.vikingArmy)
-    saxon= random.choice(self.saxonArmy)
+    viking, saxon= random.choice(self.vikingArmy), random.choice(self.saxonArmy)
 
     damage_report= saxon.receiveDamage(viking.strength)
     if saxon.health<= 0:
@@ -203,8 +200,7 @@ class War():
     return damage_report
   
   def saxonAttack(self):
-    viking= random.choice(self.vikingArmy)
-    saxon= random.choice(self.saxonArmy)
+    viking, saxon= random.choice(self.vikingArmy), saxon= random.choice(self.saxonArmy)
 
     damage_report= viking.receiveDamage(saxon.strength)
     if viking.health<= 0:
