@@ -8,7 +8,7 @@ Game rules
 
   Stats
   Viking's Stats            :
-           Health           : [80 -  112]
+           Health           : [80 -  102]
            Strength         : [8  -   13]
            Viking's Army    : [100 - 160]
            Battle Cry       : "Odin Owns You All!"
@@ -48,9 +48,10 @@ def generate_random_saxon():
 
   return Saxon(health, strength)
 
-def battlefield():
+def create_armies():
   num_vikings= random.randint(VIKING_ARMY_RANGE[0], VIKING_ARMY_RANGE[1])
   num_saxon=   random.randint(SAXON_ARMY_RANGE[0], SAXON_ARMY_RANGE[1])
+
 
   war= War()
   # Adding Vikings
@@ -65,7 +66,7 @@ def battlefield():
 def simulate_battle(war, initial_vikings, initial_saxons):
   round_count= 0
 
-  while war.vikingArmy and war.SaxonArmy:
+  while war.vikingArmy and war.saxonArmy:
     war.vikingAttack()
 
     if war.saxonArmy:
@@ -75,8 +76,7 @@ def simulate_battle(war, initial_vikings, initial_saxons):
     if round_count% 10== 0:
       vikings_left= len(war.vikingArmy)
       saxons_left= len(war.saxonArmy)
-      print(f"Round {round_count}: {vikings_left}\
-            Vikings | {saxons_left} Saxons")
+      print(f"Round {round_count}:{20*" "} {vikings_left} Vikings | {saxons_left} Saxons")
 
     # !!! Dump check
     if round_count> 5000:
@@ -86,7 +86,14 @@ def simulate_battle(war, initial_vikings, initial_saxons):
   final_results= war.showStatus()
   print(f"\n{'='*60}")
   print(final_results)
-  print(
-    f"\n{'='*60}"
-    
-  )
+  print("Final results:")
+  print(f"Initial vikings: {initial_vikings}")
+  print(f"Initial Saxons: {initial_saxons}")
+  print(f"Total rounds: {round_count}")
+
+def main():
+  war, vk, sx= create_armies()
+  simulate_battle(war, vk, sx)
+
+if __name__== "__main__":
+  main()
