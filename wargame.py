@@ -1,7 +1,7 @@
 # With a correction already implemented: dont forget to initialize an instance of Class "War"
 
 
-from .vikingsClasses import Soldier, Viking, Saxon, War
+from vikingsClasses import Soldier, Viking, Saxon, War
 import random
 
 
@@ -25,3 +25,4 @@ while great_war.showStatus() == "Vikings and Saxons are still in the thick of ba
     print(f"round: {round} // Viking army: {len(great_war.vikingArmy)} warriors",f"and Saxon army: {len(great_war.saxonArmy)} warriors")
     print(great_war.showStatus())
     round += 1
+    

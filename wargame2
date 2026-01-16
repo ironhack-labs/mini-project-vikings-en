@@ -1,0 +1,74 @@
+# With a correction already implemented: dont forget to initialize an instance of Class "War"
+
+
+from vikingsClasses import Soldier, Viking, Saxon, War
+import random
+
+# Color codes for terminal (ANSI Escape Codes)
+Blue = "\033[34m" 
+Red = "\033[31m"
+Reset = "\033[0m"
+Bold = "\033[1m"
+
+
+# List of names for our Viking warriors
+soldier_names = ["Hild","Herja","Idun","Freya", "Odin","Einar","Sigrun","Bestla","Vidar","Modi"]
+
+# Define thy specialists (The "Database")
+vikings_types = [
+    {"name": "Hild (Berserker)", "hp": 150, "str": 80},
+    {"name": "Herja (Shieldmaiden)", "hp": 120, "str": 40},
+    {"name": "Idun (Shipbuilder)", "hp": 80, "str": 30},
+    {"name": "Freya (Iron Side)", "hp": 130, "str": 60},
+    {"name": "Odin (The Boneless)", "hp": 90, "str": 90},
+    {"name": "Einar (The Boneless)", "hp": 90, "str": 90},
+    {"name": "Sigrun (Iron Side)", "hp": 130, "str": 60},
+    {"name": "Bestla (The Boneless)", "hp": 90, "str": 90},
+    {"name": "Vidar (Berserker)", "hp": 150, "str": 80},
+    {"name": "Modi (Shieldmaiden)", "hp": 120, "str": 40}
+]
+
+# Initialize the War instance
+great_war = War()
+
+# LOOP: This adds ALL your specialists to the war
+for v_type in vikings_types:
+    great_war.addViking(Viking(v_type["name"], v_type["hp"], v_type["str"]))
+
+# Create 10 Saxons to balance the 10 Vikings
+for i in range(10):
+    great_war.addSaxon(Saxon(100, random.randint(30, 55)))
+
+round_count = 1
+print(f"\n{Bold}--- THE BATTLE BEGINS ---{Reset}")
+
+# Game loop: continues as long as showStatus indicates the battle is ongoing
+while great_war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
+    
+    # 50/50 chance to decide which army attacks first in this round
+    if random.random() > 0.5:
+        # Vikings take the initiative
+        great_war.vikingAttack()
+        # Only counter-attack if the battle hasn't ended yet
+        if great_war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
+            great_war.saxonAttack()
+    else:
+        # Saxons take the initiative
+        great_war.saxonAttack()
+        # Only counter-attack if the battle hasn't ended yet
+        if great_war.showStatus() == "Vikings and Saxons are still in the thick of battle.":
+            great_war.vikingAttack()
+
+    # Progress Report
+    print(f"\nRound: {round_count}")
+    print(f"{Blue}Viking Army: {len(great_war.vikingArmy)} warriors left{Reset}")
+    print(f"{Red}Saxon Army: {len(great_war.saxonArmy)} warriors left{Reset}")
+    print(f"Current Status: {great_war.showStatus()}")
+    
+    round_count += 1
+
+# Final result after the loop ends
+print(f"\n{Bold}================================")
+print("       FINAL WAR RESULT")
+print("================================{Reset}")
+print(f"{Bold}{great_war.showStatus()}{Reset}\n")
