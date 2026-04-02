@@ -1,0 +1,15 @@
+testAttackHasNoParams (__main__.TestSoldier) ... ok
+testAttackRetunsStrength (__main__.TestSoldier) ... ok
+testAttackShouldBeFunction (__main__.TestSoldier) ... ok
+testCanReceiveDamage (__main__.TestSoldier) ... ok
+testConstructorSignature (__main__.TestSoldier) ... ok
+testHealth (__main__.TestSoldier) ... ok
+testReceiveDamageReturnNone (__main__.TestSoldier) ... ok
+testReceivesDamage (__main__.TestSoldier) ... ok
+testReceivesDamageHasParams (__main__.TestSoldier) ... ok
+testStrength (__main__.TestSoldier) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.003s
+
+OK
