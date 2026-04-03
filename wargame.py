@@ -1,12 +1,15 @@
 # With a correction already implemented: dont forget to initialize an instance of Class "War"
 
 
-from .vikingsClasses import Soldier, Viking, Saxon, War
+from vikingsClasses import Soldier, Viking, Saxon, War
 import random
 
 
 soldier_names = ["albert","andres","archie","dani", "david","gerard","german","graham","imanol","laura"]
 great_war = War()
+print(great_war.showStatus())
+print("Vikings:", len(great_war.vikingArmy))
+print("Saxons:", len(great_war.saxonArmy))
 
 #Create 5 Vikings
 for i in range(0,5):
@@ -25,3 +28,7 @@ while great_war.showStatus() == "Vikings and Saxons are still in the thick of ba
     print(f"round: {round} // Viking army: {len(great_war.vikingArmy)} warriors",f"and Saxon army: {len(great_war.saxonArmy)} warriors")
     print(great_war.showStatus())
     round += 1
+
+print("After creation:")
+print("Vikings:", len(great_war.vikingArmy))
+print("Saxons:", len(great_war.saxonArmy))
