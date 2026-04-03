@@ -5,56 +5,95 @@ import random
 
 class Soldier:
     def __init__(self, health, strength):
-        # your code here
+        self.health = health
+        self.strength = strength
     
     def attack(self):
-        # your code here
+        return self.strength
 
     def receiveDamage(self, damage):
-        # your code here
-    
+        self.health -= damage
+        
 
 # Viking
 
 class Viking(Soldier):
     def __init__(self, name, health, strength):
-        # your code here
+        super().__init__(health, strength)
+        self.name = name
 
     def battleCry(self):
-        # your code here
+        return f"Odin Owns You All!"
 
     def receiveDamage(self, damage):
-        # your code here
+        self.health -= damage
+        if self.health > 0:
+            return f"{self.name} has received {damage} points of damage"
+        else:
+            return f"{self.name} has died in act of combat"
+
 
 # Saxon
 
 class Saxon(Soldier):
     def __init__(self, health, strength):
-        # your code here
+        super().__init__(health, strength)
 
     def receiveDamage(self, damage):
-        # your code here
+        self.health -= damage
+        if self.health > 0:
+            return f"A Saxon has received {damage} points of damage"
+        else:
+            return f"A Saxon has died in combat"
+
 
 # Davicente
 
 class War():
+    
     def __init__(self):
-        # your code here
+        self.vikingArmy = []
+        self.saxonArmy = []
 
     def addViking(self, viking):
-        # your code here
+        self.vikingArmy.append(viking)
     
     def addSaxon(self, saxon):
-        # your code here
+        self.saxonArmy.append(saxon)
     
     def vikingAttack(self):
-        # your code here
+
+        if not self.saxonArmy or not self.vikingArmy:
+            return "No attack possible"
+        
+        chosensaxon = random.choice(self.saxonArmy)
+        chosenviking = random.choice(self.vikingArmy)
+        
+        result = chosensaxon.receiveDamage(chosenviking.strength)
+
+        self.saxonArmy = [s for s in self.saxonArmy if s.health > 0]
+        
+        return result
     
     def saxonAttack(self):
-        # your code here
+
+        if not self.vikingArmy or not self.saxonArmy:
+            return "No attack possible"
+
+        chosensaxon = random.choice(self.saxonArmy)
+        chosenviking = random.choice(self.vikingArmy)
+
+        result = chosenviking.receiveDamage(chosensaxon.strength)
+
+        self.vikingArmy = [v for v in self.vikingArmy if v.health > 0]
+
+        return result
+
 
     def showStatus(self):
-        # your code here
-    pass
-
-
+        if self.saxonArmy == []:
+            return "Vikings have won the war of the century!"
+        if self.vikingArmy == []:
+            return "Saxons have fought for their lives and survive another day..."
+        if len(self.saxonArmy) >= 1 and len(self.vikingArmy) >= 1:
+            return "Vikings and Saxons are still in the thick of battle."
