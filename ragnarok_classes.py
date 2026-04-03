@@ -21,58 +21,18 @@ class Soldier:
 # Viking
 
 class Viking(Soldier):
-    VICKING_NAMES = [
-    "Ragnar the Stormborn",
-    "Freydis the Fierce",
-    "Bjorn the Ironside",
-    "Astrid the Swift",
-    "Leif the Lucky",
-    "Ingrid the Unbroken",
-    "Harald the Red",
-    "Sigrid the Wise",
-    "Ivar the Boneless",
-    "Thyra the Bold",
-    "Erik the Bloodaxe",
-    "Gudrun the Vengeful",
-    "Halfdan the Black",
-    "Runa the Seer",
-    "Sigurd the Dragon-Slayer",
-    "Helga the Strong",
-    "Olaf the Stout",
-    "Eira the Silent",
-    "Knut the Great",
-    "Ylva the Howler",
-    "Torstein the Bear",
-    "Brynhild the Shieldmaiden",
-    "Ulf the Wolf",
-    "Solveig the Radiant",
-    "Hakon the Grim",
-    "Dagny the Fearless",
-    "Sten the Hammer",
-    "Liv the Unyielding",
-    "Arne the Hawk",
-    "Kari the Windrunner",
-    "Rolf the Giant",
-    "Thora the Ironheart",
-    "Vidar the Avenger",
-    "Alva the Frostborn",
-    "Eirik the Wanderer",
-    "Svanhild the Proud",
-    "Bjarni the Sea-Rover",
-    "Tora the Flame",
-    "Odd the Keen",
-    "Frida the Stormweaver",
-    "Magnus the Lion",
-    "Hilda the Warborn",
-    "Snorri the Skald",
-    "Yrsa the Huntress",
-    "Valdemar the Conqueror",
-    "Ragnhild the Iceblood",
-    "Egil the Ruthless",
-    "Sif the Golden",
-    "Thorvald the Oathbound",
-    "Asa the Unfading"
-]
+    VICKING_NAMES =  {
+    "Hrist the Shaker": "shakes the ground",
+    "Mist the Silent Veil": "summons thick fog",
+    "Skeggjöld the Axe": "throws a blazing axe",
+    "Skögul the Raging One": "enters battle rage",
+    "Hildr the Warrior": "raises the fallen",
+    "Thrud the Might": "strikes with force",
+    "Hlökk the Shrieking One": "unleashes a scream",
+    "Herfjötur the Host-Fetter": "binds with chains",
+    "Geirönul the Spear-Bearer": "calls spears from above",
+    "Reginleif the Gods'Kin": "channels divine power"
+}
 
     
     def __init__(self, name, health, strength):
@@ -84,7 +44,8 @@ class Viking(Soldier):
 
     def battleCry(self):
         # your code here
-        return "Odin Owns You All!"
+
+        return self.VICKING_NAMES[self.name]
         
     def receiveDamage(self, damage):
         self.damage = damage
@@ -100,7 +61,22 @@ class Viking(Soldier):
 
 
 class Saxon(Soldier):
-    def __init__(self, health, strength):
+    CREATURES_NAMES = [
+    "Fenrir the World-Breaker",
+    "Jormungandr the World Serpent",
+    "Sleipnir the Eight-Legged Steed",
+    "Nidhogg the Corpse-Eater",
+    "Huginn and Muninn the Minds of Odin",
+    "Garmr the Helhound Guardian",
+    "Ratatoskr the Tree-Runner",
+    "Skoll and Hati the Sun and Moon Hunters",
+    "Hraesvelgr the Wind-Maker",
+    "Fafnir the Cursed Dragon"
+    ]
+    
+
+    def __init__(self, name, health, strength):
+        self.name = name
         # your code here
         super().__init__(health, strength)
 
@@ -111,9 +87,9 @@ class Saxon(Soldier):
         self.damage = damage
         self.health -= damage
         if self.health > 0:
-            return f"A Saxon has received {self.damage} points of damage"
+            return f"{self.name} has received {self.damage} points of damage"
         else:
-            return f"A Saxon has died in combat"
+            return f"{self.name} has died in act of combat"
 
 
 class War():
@@ -130,8 +106,9 @@ class War():
     
     def addSaxon(self, saxon):
         # your code here
+        self.saxon = saxon
 
-        self.saxonArmy.append(saxon)
+        self.saxonArmy.append(self.saxon)
         
 
     
@@ -141,11 +118,12 @@ class War():
             saxon_warrior = self.saxonArmy[random.randrange(len(self.saxonArmy))]
             viking_warrior = random.choice(self.vikingArmy)
             outcome = saxon_warrior.receiveDamage(viking_warrior.attack())
-
             if saxon_warrior.health <= 0:
                 self.saxonArmy.remove(saxon_warrior)
 
-            return outcome
+            return f"{viking_warrior.name} {Viking.battleCry(viking_warrior)}\n{outcome}"
+        else:
+            return ""
 
     
     def saxonAttack(self):
@@ -157,15 +135,21 @@ class War():
             if viking_warrior.health <= 0:
                 self.vikingArmy.remove(viking_warrior)
             return outcome
+        else:
+            return ""
+        
+    
   
 
     def showStatus(self):
         # your code here
-        if self.saxonArmy == []:
-            return "Vikings have won the war of the century!"
-        if self.vikingArmy == []:
-            return "Saxons have fought for their lives and survive another day..."
-        if len(self.saxonArmy) >= 1 and len(self.vikingArmy) >=1:
-            return "Vikings and Saxons are still in the thick of battle."
+        if len(self.saxonArmy) == 0:
+            return "\nThe Valkyries stopped the Ragnarok and Asgard is safe!\n"
+        elif len(self.vikingArmy) == 0:
+            return "\nThe light has fallen, and the world is lost.\n"
+        elif len(self.saxonArmy) >= 1 and len(self.vikingArmy) >=1:
+            return "Valkyries and Creatures are still in the thick of battle."
+        else:
+            pass
         
 
